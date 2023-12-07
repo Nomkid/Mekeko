@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnpyeyifuwhfk"]
+
+[ext_resource type="Script" path="res://pmxload.gd" id="1_k2tjo"]
+
+[node name="PMXLoadTest" type="Node3D"]
+script = ExtResource("1_k2tjo")

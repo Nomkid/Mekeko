@@ -1,0 +1,5 @@
+# local test models and random garbage
+test/
+
+# Godot 4+ specific ignores
+.godot/
