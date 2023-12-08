@@ -134,7 +134,7 @@ func _ready():
 		material_surfaces.push_back(num_surfaces)
 	
 	var idxmap := {}
-	var skeleton := Skeleton3D.new()
+	var skeleton := SkeletonPMX3D.new()
 	var bone_count := file.get_32()
 	for i in bone_count:
 		var name_jp := get_string(file, globals[Globals.TEXT_ENCODING])
@@ -169,6 +169,13 @@ func _ready():
 			skeleton.set_bone_parent(leaf_bone_idx, bone_idx)
 			skeleton.set_bone_rest(leaf_bone_idx, Transform3D(Basis(), tail))
 			skeleton.set_bone_pose_position(leaf_bone_idx, tail)
+		else:
+			skeleton.inherit_map[bone_idx] = [ # TODO: make this use enum
+				tail,
+				check_flag(flags, FlagsBone.INHERIT_ROTATION),
+				check_flag(flags, FlagsBone.INHERIT_TRANSLATION),
+			]
+			skeleton._on_bone_pose_changed(bone_idx)
 		
 		if check_flag(flags, FlagsBone.INHERIT_ROTATION) or check_flag(flags, FlagsBone.INHERIT_TRANSLATION):
 			var idx := get_idx(file, globals[Globals.BONE_INDEX_SIZE], false)
